@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class AllTreatmentController {
+public class AllTreatmentPresenter {
 
     @FXML
     private TableView<Treatment> tableView;
@@ -71,7 +71,7 @@ public class AllTreatmentController {
         this.buttonDelete.setDisable(true);
         this.tableView.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldTreatment, newTreatment) ->
-                        AllTreatmentController.this.buttonDelete.setDisable(newTreatment == null));
+                        AllTreatmentPresenter.this.buttonDelete.setDisable(newTreatment == null));
 
         this.createComboBoxData();
     }
@@ -181,7 +181,7 @@ public class AllTreatmentController {
             // the primary stage should stay in the background
             Stage stage = new Stage();
 
-            NewTreatmentController controller = loader.getController();
+            NewTreatmentPresenter controller = loader.getController();
             controller.initialize(this, stage, patient);
 
             stage.setScene(scene);
@@ -200,7 +200,7 @@ public class AllTreatmentController {
 
             // the primary stage should stay in the background
             Stage stage = new Stage();
-            TreatmentController controller = loader.getController();
+            TreatmentPresenter controller = loader.getController();
             controller.initializeController(this, stage, treatment);
 
             stage.setScene(scene);
