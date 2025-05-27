@@ -1,9 +1,7 @@
 package de.hitec.nhplus.utils;
 
-import de.hitec.nhplus.datastorage.ConnectionBuilder;
-import de.hitec.nhplus.datastorage.DaoFactory;
-import de.hitec.nhplus.datastorage.PatientDao;
-import de.hitec.nhplus.datastorage.TreatmentDao;
+import de.hitec.nhplus.datastorage.*;
+import de.hitec.nhplus.model.Caregiver;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.model.Treatment;
 
@@ -34,6 +32,7 @@ public class SetUpDB {
         SetUpDB.setUpTableCaregiver(connection);
         SetUpDB.setUpPatients();
         SetUpDB.setUpTreatments();
+        SetUpDB.setUpCaregivers();
     }
 
     /**
@@ -127,6 +126,15 @@ public class SetUpDB {
             dao.create(new Treatment(16, 6, convertStringToLocalDate("2023-08-31"), convertStringToLocalTime("13:30"), convertStringToLocalTime("13:45"), "Toilettengang", "Hilfe beim Toilettengang; Patientin klagt über Schmerzen beim Stuhlgang. Gabe von Iberogast"));
             dao.create(new Treatment(17, 6, convertStringToLocalDate("2023-09-01"), convertStringToLocalTime("16:00"), convertStringToLocalTime("17:00"), "KG", "Massage der Extremitäten zur Verbesserung der Durchblutung"));
         } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private static void setUpCaregivers() {
+        try {
+            CaregiverDao dao = DaoFactory.getDaoFactory().createCaregiverDao();
+            dao.create(new Caregiver(1, "Rosenbaum", "Ben", "0152 02738351"));
+        }catch (SQLException exception){
             exception.printStackTrace();
         }
     }

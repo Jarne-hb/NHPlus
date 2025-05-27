@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a34ff0ce-7744-41f9-a83e-ef9c348ef1da" name="Changes" comment="Readme aktualisiert, Klassendiagramm hinzugefügt, JavaFX IB, Schriftarten aktualisiert">
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/datastorage/CaregiverDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/model/Caregiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/5a5b8be1-080b-4129-b89d-42f1ea832b90.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5a5b8be1-080b-4129-b89d-42f1ea832b90.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/nursingHome.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/nursingHome.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/AllCaregiverPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/AllCaregiverPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/MainWindowPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/MainWindowPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/datastorage/CaregiverDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/datastorage/CaregiverDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/model/Caregiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/model/Caregiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/utils/SetUpDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/utils/SetUpDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/de/hitec/nhplus/AllCaregiverView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/hitec/nhplus/AllCaregiverView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/de/hitec/nhplus/MainWindowView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/hitec/nhplus/MainWindowView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +113,7 @@
       <recent name="de.hitec.nhplus.utils" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SetUpDB">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="de.hitec.nhplus.Main" />
       <module name="NHPlus" />
@@ -139,8 +142,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SetUpDB" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.SetUpDB" />
       </list>
     </recent_temporary>
   </component>

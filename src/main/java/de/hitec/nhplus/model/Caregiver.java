@@ -5,47 +5,47 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Caregiver extends Person{
 
-    private SimpleLongProperty cgId;
-    private final SimpleStringProperty telNumber;
+    private SimpleLongProperty cgID;
+    private final SimpleStringProperty telephone;
 
-    public Caregiver(long cgId, String firstName, String surname, String telNumber) {
+    public Caregiver(long cgID, String surname, String firstName, String telephone) {
         super(firstName, surname);
-        this.cgId = new SimpleLongProperty(cgId);
-        this.telNumber = new SimpleStringProperty(telNumber);
+        this.cgID = new SimpleLongProperty(cgID);
+        this.telephone = new SimpleStringProperty(telephone);
     }
 
-    public Caregiver(String firstName, String surname, String telNumber){
+    public Caregiver(String surname, String firstName, String telephone){
         super(firstName, surname);
-        this.telNumber = new SimpleStringProperty(telNumber);
+        this.telephone = new SimpleStringProperty(telephone);
     }
 
-    public long getCgId() {
-        return cgId.get();
+    public long getCgID() {
+        return cgID.get();
     }
 
-    public SimpleLongProperty cgIdProperty() {
-        return cgId;
+    public SimpleLongProperty cgIDProperty() {
+        return cgID;
     }
 
-    public String getTelNumber() {
-        return telNumber.get();
+    public String getTelephone() {
+        return telephone.get();
     }
 
-    public SimpleStringProperty telNumberProperty() {
-        return telNumber;
+    public SimpleStringProperty telephoneProperty() {
+        return telephone;
     }
 
-    public void setTelNumber(String telNumber){
-        this.telNumber.set(telNumber);
+    public void setTelephone(String telephone){
+        this.telephone.set(telephone);
     }
 
     @Override
     public String toString() {
         return "Caregiver{" +
-                "cgId=" + cgId +
+                "cgId=" + cgID +
                 "firstName=" + this.getFirstName() +
                 "surname=" + this.getSurname() +
-                ", telNumber=" + telNumber +
+                ", telNumber=" + telephone +
                 '}';
     }
 }

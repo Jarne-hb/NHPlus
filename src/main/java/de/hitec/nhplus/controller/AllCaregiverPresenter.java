@@ -2,9 +2,7 @@ package de.hitec.nhplus.controller;
 
 import de.hitec.nhplus.datastorage.CaregiverDao;
 import de.hitec.nhplus.datastorage.DaoFactory;
-import de.hitec.nhplus.datastorage.PatientDao;
 import de.hitec.nhplus.model.Caregiver;
-import de.hitec.nhplus.model.Patient;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -54,6 +52,7 @@ public class AllCaregiverPresenter {
     private final ObservableList<Caregiver> caregivers = FXCollections.observableArrayList();
     private CaregiverDao dao;
 
+    @FXML
     private void initialize(){
         readAllAndShowInTableView();
 
@@ -78,7 +77,12 @@ public class AllCaregiverPresenter {
             }
         });
 
-
+        this.btnAdd.setDisable(true);
+        ChangeListener<String> inputNewCaregiverListener = (observableValue, oldText, newText) ->
+                AllCaregiverPresenter.this.btnAdd.setDisable(!AllCaregiverPresenter.this.areInputDataValid());
+        this.txfSurname.textProperty().addListener(inputNewCaregiverListener);
+        this.txfFirstname.textProperty().addListener(inputNewCaregiverListener);
+        this.txfTelephone.textProperty().addListener(inputNewCaregiverListener);
     }
 
     private void readAllAndShowInTableView() {
@@ -86,6 +90,38 @@ public class AllCaregiverPresenter {
         this.dao = DaoFactory.getDaoFactory().createCaregiverDao();
         try {
             this.caregivers.addAll(this.dao.readAll());
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleOnEditSurname(TableColumn.CellEditEvent<Caregiver, String> event) {
+        event.getRowValue().setSurname(event.getNewValue());
+        this.doUpdate(event);
+    }
+
+    @FXML
+    public void handleOnEditFirstName(TableColumn.CellEditEvent<Caregiver, String> event) {
+        event.getRowValue().setFirstName(event.getNewValue());
+        this.doUpdate(event);
+    }
+
+    @FXML
+    public void handleOnEditTelephone(TableColumn.CellEditEvent<Caregiver, String> event) {
+        event.getRowValue().setTelephone(event.getNewValue());
+        this.doUpdate(event);
+    }
+
+    private boolean areInputDataValid() {
+        return !this.txfFirstname.getText().isBlank() && !this.txfSurname.getText().isBlank() && !this.txfTelephone.getText().isBlank();
+    }
+
+
+
+    private void doUpdate(TableColumn.CellEditEvent<Caregiver, String> event) {
+        try {
+            this.dao.update(event.getRowValue());
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

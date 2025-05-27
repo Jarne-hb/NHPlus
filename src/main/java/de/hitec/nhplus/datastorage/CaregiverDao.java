@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CaregiverDao extends DaoImp<Caregiver> {
 
@@ -48,7 +47,7 @@ public class CaregiverDao extends DaoImp<Caregiver> {
             preparedStatement = this.connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, caregiver.getFirstName());
             preparedStatement.setString(2, caregiver.getSurname());
-            preparedStatement.setString(3, caregiver.getTelNumber());
+            preparedStatement.setString(3, caregiver.getTelephone());
         }catch (SQLException exception){
             exception.printStackTrace();
         }
@@ -93,13 +92,13 @@ public class CaregiverDao extends DaoImp<Caregiver> {
             final String sqlStatement = "UPDATE caregiver SET " +
                     "firstname = ?, " +
                     "surname = ?, " +
-                    "telNumber = ?, " +
+                    "telNumber = ? " + // Komma hier entfernt
                     "WHERE cgId = ?";
             preparedStatement = this.connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, caregiver.getFirstName());
             preparedStatement.setString(2, caregiver.getSurname());
-            preparedStatement.setString(3, caregiver.getTelNumber());
-            preparedStatement.setLong(4, caregiver.getCgId());
+            preparedStatement.setString(3, caregiver.getTelephone());
+            preparedStatement.setLong(4, caregiver.getCgID());
         }catch (SQLException exception){
             exception.printStackTrace();
         }
