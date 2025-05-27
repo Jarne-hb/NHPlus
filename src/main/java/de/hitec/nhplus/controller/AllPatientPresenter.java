@@ -184,17 +184,6 @@ public class AllPatientPresenter {
     }
 
     /**
-     * When a cell of the column with assets was changed, this method will be called, to persist the change.
-     *
-     * @param event Event including the changed object and the change.
-     */
-    @FXML
-    public void handleOnEditAssets(TableColumn.CellEditEvent<Patient, String> event){
-        event.getRowValue().setAssets(event.getNewValue());
-        this.doUpdate(event);
-    }
-
-    /**
      * Updates a patient by calling the method <code>update()</code> of {@link PatientDao}.
      *
      * @param event Event including the changed object and the change.
@@ -252,9 +241,8 @@ public class AllPatientPresenter {
         LocalDate date = DateConverter.convertStringToLocalDate(birthday);
         String careLevel = this.textFieldCareLevel.getText();
         String roomNumber = this.textFieldRoomNumber.getText();
-        String assets = this.textFieldAssets.getText();
         try {
-            this.dao.create(new Patient(firstName, surname, date, careLevel, roomNumber, assets));
+            this.dao.create(new Patient(firstName, surname, date, careLevel, roomNumber));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
