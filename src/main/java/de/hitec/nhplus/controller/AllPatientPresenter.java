@@ -47,9 +47,6 @@ public class AllPatientPresenter {
     private TableColumn<Patient, String> columnRoomNumber;
 
     @FXML
-    private TableColumn<Patient, String> columnAssets;
-
-    @FXML
     private Button buttonDelete;
 
     @FXML
@@ -69,9 +66,6 @@ public class AllPatientPresenter {
 
     @FXML
     private TextField textFieldRoomNumber;
-
-    @FXML
-    private TextField textFieldAssets;
 
     private final ObservableList<Patient> patients = FXCollections.observableArrayList();
     private PatientDao dao;
@@ -103,9 +97,6 @@ public class AllPatientPresenter {
         this.columnRoomNumber.setCellValueFactory(new PropertyValueFactory<>("roomNumber"));
         this.columnRoomNumber.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        this.columnAssets.setCellValueFactory(new PropertyValueFactory<>("assets"));
-        this.columnAssets.setCellFactory(TextFieldTableCell.forTableColumn());
-
         //Anzeigen der Daten
         this.tableView.setItems(this.patients);
 
@@ -125,7 +116,6 @@ public class AllPatientPresenter {
         this.textFieldDateOfBirth.textProperty().addListener(inputNewPatientListener);
         this.textFieldCareLevel.textProperty().addListener(inputNewPatientListener);
         this.textFieldRoomNumber.textProperty().addListener(inputNewPatientListener);
-        this.textFieldAssets.textProperty().addListener(inputNewPatientListener);
     }
 
     /**
@@ -259,7 +249,6 @@ public class AllPatientPresenter {
         this.textFieldDateOfBirth.clear();
         this.textFieldCareLevel.clear();
         this.textFieldRoomNumber.clear();
-        this.textFieldAssets.clear();
     }
 
     private boolean areInputDataValid() {
@@ -273,6 +262,6 @@ public class AllPatientPresenter {
 
         return !this.textFieldFirstName.getText().isBlank() && !this.textFieldSurname.getText().isBlank() &&
                 !this.textFieldDateOfBirth.getText().isBlank() && !this.textFieldCareLevel.getText().isBlank() &&
-                !this.textFieldRoomNumber.getText().isBlank() && !this.textFieldAssets.getText().isBlank();
+                !this.textFieldRoomNumber.getText().isBlank();
     }
 }
