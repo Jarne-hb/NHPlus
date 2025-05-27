@@ -56,7 +56,7 @@ public class AllCaregiverPresenter {
     private void initialize(){
         readAllAndShowInTableView();
 
-        this.colID.setCellValueFactory(new PropertyValueFactory<>("cgId"));
+        this.colID.setCellValueFactory(new PropertyValueFactory<>("cgID"));
 
         this.colSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
         this.colSurname.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -64,7 +64,7 @@ public class AllCaregiverPresenter {
         this.colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         this.colFirstName.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        this.colTelephone.setCellValueFactory(new PropertyValueFactory<>("telNumber"));
+        this.colTelephone.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         this.colTelephone.setCellFactory(TextFieldTableCell.forTableColumn());
 
         this.tableView.setItems(this.caregivers);
@@ -117,7 +117,39 @@ public class AllCaregiverPresenter {
         return !this.txfFirstname.getText().isBlank() && !this.txfSurname.getText().isBlank() && !this.txfTelephone.getText().isBlank();
     }
 
+    @FXML
+    public void handleDelete(){
+        Caregiver caregiverSelection = tableView.getSelectionModel().getSelectedItem();
+        if (caregiverSelection != null) {
+            try {
+                DaoFactory.getDaoFactory().createCaregiverDao().deleteById(caregiverSelection.getCgID());
+                this.tableView.getItems().remove(caregiverSelection);
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
+    }
 
+    @FXML
+    public void handleAdd(){
+        String surname = txfSurname.getText();
+        String firstName = txfFirstname.getText();
+        String telephone = txfTelephone.getText();
+
+        try {
+            this.dao.create(new Caregiver(surname, firstName, telephone));
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        readAllAndShowInTableView();
+        clearTextFields();
+    }
+
+    private void clearTextFields(){
+        txfSurname.clear();
+        txfFirstname.clear();
+        txfTelephone.clear();
+    }
 
     private void doUpdate(TableColumn.CellEditEvent<Caregiver, String> event) {
         try {
