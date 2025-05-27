@@ -32,4 +32,14 @@ public class MainWindowPresenter {
             exception.printStackTrace();
         }
     }
-}
+
+    public void handleShowAllCaregivers(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllCaregiverView.fxml"));
+        try {
+            mainBorderPane.setCenter(loader.load());
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+    }
+
