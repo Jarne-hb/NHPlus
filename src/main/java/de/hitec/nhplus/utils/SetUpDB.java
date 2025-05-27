@@ -31,6 +31,7 @@ public class SetUpDB {
         SetUpDB.wipeDb(connection);
         SetUpDB.setUpTablePatient(connection);
         SetUpDB.setUpTableTreatment(connection);
+        SetUpDB.setUpTableCaregiver(connection);
         SetUpDB.setUpPatients();
         SetUpDB.setUpTreatments();
     }
@@ -73,6 +74,21 @@ public class SetUpDB {
                 "   description TEXT NOT NULL, " +
                 "   remark TEXT NOT NULL," +
                 "   FOREIGN KEY (pid) REFERENCES patient (pid) ON DELETE CASCADE " +
+                ");";
+
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(SQL);
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private static void setUpTableCaregiver(Connection connection) {
+        final String SQL = "CREATE TABLE IF NOT EXISTS caregiver (" +
+                "   cgId INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "   firstName TEXT NOT NULL, " +
+                "   surname TEXT NOT NULL, " +
+                "   telNumber TEXT NOT NULL " +
                 ");";
 
         try (Statement statement = connection.createStatement()) {
