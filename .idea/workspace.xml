@@ -109,7 +109,7 @@
       <module name="NHPlus" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="de.hitec.nhplus.controller.*" />
+          <option name="PATTERN" value="de.hitec.nhplus.presenter.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
