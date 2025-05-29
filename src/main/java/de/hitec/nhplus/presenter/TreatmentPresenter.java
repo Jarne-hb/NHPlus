@@ -22,6 +22,12 @@ public class TreatmentPresenter {
     private Label labelCareLevel;
 
     @FXML
+    private Label labelCaregiverName;
+
+    @FXML
+    private Label labelCaregiverTelephone;
+
+    @FXML
     private TextField textFieldBegin;
 
     @FXML
@@ -35,6 +41,7 @@ public class TreatmentPresenter {
 
     @FXML
     private DatePicker datePicker;
+
 
     private AllTreatmentPresenter controller;
     private Stage stage;
