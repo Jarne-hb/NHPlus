@@ -1,8 +1,10 @@
 package de.hitec.nhplus.presenter;
 
+import de.hitec.nhplus.datastorage.CaregiverDao;
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.PatientDao;
 import de.hitec.nhplus.datastorage.TreatmentDao;
+import de.hitec.nhplus.model.Caregiver;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -47,13 +49,16 @@ public class TreatmentPresenter {
     private Stage stage;
     private Patient patient;
     private Treatment treatment;
+    private Caregiver caregiver;
 
     public void initializeController(AllTreatmentPresenter controller, Stage stage, Treatment treatment) {
         this.stage = stage;
         this.controller= controller;
         PatientDao pDao = DaoFactory.getDaoFactory().createPatientDAO();
+        CaregiverDao cgDao = DaoFactory.getDaoFactory().createCaregiverDao();
         try {
             this.patient = pDao.read((int) treatment.getPid());
+            this.caregiver = cgDao.read(treatment.getCgID());
             this.treatment = treatment;
             showData();
         } catch (SQLException exception) {
@@ -62,8 +67,10 @@ public class TreatmentPresenter {
     }
 
     private void showData(){
-        this.labelPatientName.setText(patient.getSurname()+", "+patient.getFirstName());
+        this.labelPatientName.setText(patient.getSurname() + ", " + patient.getFirstName());
         this.labelCareLevel.setText(patient.getCareLevel());
+        this.labelCaregiverName.setText(caregiver.getSurname() + ", " + caregiver.getFirstName());
+        this.labelCaregiverTelephone.setText(caregiver.getTelephone());
         LocalDate date = DateConverter.convertStringToLocalDate(treatment.getDate());
         this.datePicker.setValue(date);
         this.textFieldBegin.setText(this.treatment.getBegin());
