@@ -30,6 +30,7 @@ public class SetUpDB {
         SetUpDB.setUpTablePatient(connection);
         SetUpDB.setUpTableTreatment(connection);
         SetUpDB.setUpTableCaregiver(connection);
+        SetUpDB.setUpTableUsers(connection);
         SetUpDB.setUpPatients();
         SetUpDB.setUpTreatments();
         SetUpDB.setUpCaregivers();
@@ -94,6 +95,19 @@ public class SetUpDB {
         try (Statement statement = connection.createStatement()) {
             statement.execute(SQL);
         } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private static void setUpTableUsers(Connection connection){
+        final String sql = "CREATE TABLE IF NOT EXISTS users (" +
+                "   username TEXT NOT NULL PRIMARY KEY ," +
+                "   password TEXT NOT NULL" +
+                ");";
+
+        try(Statement statement = connection.createStatement()){
+            statement.execute(sql);
+        }catch (SQLException exception){
             System.out.println(exception.getMessage());
         }
     }
