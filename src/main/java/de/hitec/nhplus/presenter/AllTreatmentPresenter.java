@@ -1,9 +1,11 @@
-package de.hitec.nhplus.controller;
+package de.hitec.nhplus.presenter;
 
 import de.hitec.nhplus.Main;
+import de.hitec.nhplus.datastorage.CaregiverDao;
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.PatientDao;
 import de.hitec.nhplus.datastorage.TreatmentDao;
+import de.hitec.nhplus.model.Caregiver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -47,17 +49,25 @@ public class AllTreatmentPresenter {
     private ComboBox<String> comboBoxPatientSelection;
 
     @FXML
+    public ComboBox<String> comboBoxCaregiverSelection;
+
+    @FXML
     private Button buttonDelete;
 
     private final ObservableList<Treatment> treatments = FXCollections.observableArrayList();
     private TreatmentDao dao;
     private final ObservableList<String> patientSelection = FXCollections.observableArrayList();
+    private final ObservableList<String> caregiverSelection = FXCollections.observableArrayList();
     private ArrayList<Patient> patientList;
+    private ArrayList<Caregiver> caregiverList;
 
     public void initialize() {
         readAllAndShowInTableView();
         comboBoxPatientSelection.setItems(patientSelection);
         comboBoxPatientSelection.getSelectionModel().select(0);
+
+        comboBoxCaregiverSelection.setItems(caregiverSelection);
+        comboBoxCaregiverSelection.getSelectionModel().select(0);
 
         this.columnId.setCellValueFactory(new PropertyValueFactory<>("tid"));
         this.columnPid.setCellValueFactory(new PropertyValueFactory<>("pid"));
@@ -88,12 +98,19 @@ public class AllTreatmentPresenter {
     }
 
     private void createComboBoxData() {
-        PatientDao dao = DaoFactory.getDaoFactory().createPatientDAO();
+        PatientDao pDao = DaoFactory.getDaoFactory().createPatientDAO();
+        CaregiverDao cgDao = DaoFactory.getDaoFactory().createCaregiverDao();
         try {
-            patientList = (ArrayList<Patient>) dao.readAll();
+            patientList = (ArrayList<Patient>) pDao.readAll();
             this.patientSelection.add("alle");
             for (Patient patient: patientList) {
                 this.patientSelection.add(patient.getSurname());
+            }
+
+            caregiverList = (ArrayList<Caregiver>) cgDao.readAll();
+            this.caregiverSelection.add("alle");
+            for (Caregiver caregiver : caregiverList){
+                this.caregiverSelection.add(caregiver.getSurname());
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -102,20 +119,12 @@ public class AllTreatmentPresenter {
 
 
     @FXML
-    public void handleComboBox() {
+    public void handlePatientComboBox() {
         String selectedPatient = this.comboBoxPatientSelection.getSelectionModel().getSelectedItem();
-        this.treatments.clear();
-        this.dao = DaoFactory.getDaoFactory().createTreatmentDao();
 
-        if (selectedPatient.equals("alle")) {
-            try {
-                this.treatments.addAll(this.dao.readAll());
-            } catch (SQLException exception) {
-                exception.printStackTrace();
-            }
-        }
+        handleComboBox(selectedPatient);
 
-        Patient patient = searchInList(selectedPatient);
+        Patient patient = searchInPatientList(selectedPatient);
         if (patient !=null) {
             try {
                 this.treatments.addAll(this.dao.readTreatmentsByPid(patient.getPid()));
@@ -124,11 +133,48 @@ public class AllTreatmentPresenter {
             }
         }
     }
+    @FXML
+    public void handleCaregiverComboBox() {
+        String selectedCaregiver = this.comboBoxCaregiverSelection.getSelectionModel().getSelectedItem();
 
-    private Patient searchInList(String surname) {
+        handleComboBox(selectedCaregiver);
+
+        Caregiver caregiver = searchInCaregiverList(selectedCaregiver);
+        if (caregiver !=null) {
+            try {
+                this.treatments.addAll(this.dao.readTreatmentsByPid(caregiver.getCgID()));
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
+    }
+
+    private void handleComboBox(String selectedPerson) {
+        this.dao = DaoFactory.getDaoFactory().createTreatmentDao();
+        this.treatments.clear();
+
+        if (selectedPerson.equals("alle")) {
+            try {
+                this.treatments.addAll(this.dao.readAll());
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
+    }
+
+    private Patient searchInPatientList(String surname) {
         for (Patient patient : this.patientList) {
             if (patient.getSurname().equals(surname)) {
                 return patient;
+            }
+        }
+        return null;
+    }
+
+    private Caregiver searchInCaregiverList(String surname) {
+        for (Caregiver caregiver : this.caregiverList) {
+            if (caregiver.getSurname().equals(surname)) {
+                return caregiver;
             }
         }
         return null;
@@ -150,8 +196,10 @@ public class AllTreatmentPresenter {
     public void handleNewTreatment() {
         try{
             String selectedPatient = this.comboBoxPatientSelection.getSelectionModel().getSelectedItem();
-            Patient patient = searchInList(selectedPatient);
-            newTreatmentWindow(patient);
+            String selectedCaregiver = this.comboBoxCaregiverSelection.getSelectionModel().getSelectedItem();
+            Patient patient = searchInPatientList(selectedPatient);
+            Caregiver caregiver = searchInCaregiverList(selectedCaregiver);
+            newTreatmentWindow(patient,caregiver);
         } catch (NullPointerException exception){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
@@ -172,7 +220,7 @@ public class AllTreatmentPresenter {
         });
     }
 
-    public void newTreatmentWindow(Patient patient) {
+    public void newTreatmentWindow(Patient patient, Caregiver caregiver) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/NewTreatmentView.fxml"));
             AnchorPane pane = loader.load();
@@ -182,7 +230,7 @@ public class AllTreatmentPresenter {
             Stage stage = new Stage();
 
             NewTreatmentPresenter controller = loader.getController();
-            controller.initialize(this, stage, patient);
+            controller.initialize(this, stage, patient, caregiver);
 
             stage.setScene(scene);
             stage.setResizable(false);

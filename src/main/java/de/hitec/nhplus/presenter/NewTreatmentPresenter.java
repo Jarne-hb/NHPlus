@@ -1,7 +1,8 @@
-package de.hitec.nhplus.controller;
+package de.hitec.nhplus.presenter;
 
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.TreatmentDao;
+import de.hitec.nhplus.model.Caregiver;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -24,6 +25,12 @@ public class NewTreatmentPresenter {
     private Label labelSurname;
 
     @FXML
+    private Label labelCaregiverName;
+
+    @FXML
+    private Label labelCaregiverTelephone;
+
+    @FXML
     private TextField textFieldBegin;
 
     @FXML
@@ -44,10 +51,12 @@ public class NewTreatmentPresenter {
     private AllTreatmentPresenter controller;
     private Patient patient;
     private Stage stage;
+    private Caregiver caregiver;
 
-    public void initialize(AllTreatmentPresenter controller, Stage stage, Patient patient) {
+    public void initialize(AllTreatmentPresenter controller, Stage stage, Patient patient, Caregiver caregiver) {
         this.controller= controller;
         this.patient = patient;
+        this.caregiver = caregiver;
         this.stage = stage;
 
         this.buttonAdd.setDisable(true);
@@ -75,6 +84,8 @@ public class NewTreatmentPresenter {
     private void showPatientData(){
         this.labelFirstName.setText(patient.getFirstName());
         this.labelSurname.setText(patient.getSurname());
+        this.labelCaregiverName.setText(caregiver.getSurname() + ", " + caregiver.getFirstName());
+        this.labelCaregiverTelephone.setText(caregiver.getTelephone());
     }
 
     @FXML
@@ -84,7 +95,7 @@ public class NewTreatmentPresenter {
         LocalTime end = DateConverter.convertStringToLocalTime(textFieldEnd.getText());
         String description = textFieldDescription.getText();
         String remarks = textAreaRemarks.getText();
-        Treatment treatment = new Treatment(patient.getPid(), date, begin, end, description, remarks);
+        Treatment treatment = new Treatment(patient.getPid(), caregiver.getCgID(), date, begin, end, description, remarks);
         createTreatment(treatment);
         controller.readAllAndShowInTableView();
         stage.close();

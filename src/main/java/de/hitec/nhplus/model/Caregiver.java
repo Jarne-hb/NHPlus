@@ -41,11 +41,10 @@ public class Caregiver extends Person{
 
     @Override
     public String toString() {
-        return "Caregiver{" +
-                "cgId=" + cgID +
-                "firstName=" + this.getFirstName() +
-                "surname=" + this.getSurname() +
-                ", telNumber=" + telephone +
-                '}';
+        return "Caregiver" + "\nMNID: " + this.cgID +
+                "\nSurname: " + this.getSurname() +
+                "\nFirstName: " + this.getFirstName() +
+                "\nTelephone: " + this.telephone +
+                "\n";
     }
 }
