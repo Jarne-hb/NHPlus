@@ -101,7 +101,8 @@ public class SetUpDB {
 
     private static void setUpTableUsers(Connection connection){
         final String sql = "CREATE TABLE IF NOT EXISTS users (" +
-                "   username TEXT NOT NULL PRIMARY KEY ," +
+                "   uid INTEGER PRIMARY KEY," +
+                "   username TEXT NOT NULL," +
                 "   password TEXT NOT NULL" +
                 ");";
 
