@@ -15,7 +15,7 @@ import java.util.List;
 
 public class UserLoginPresenter {
     private Main mainApp;
-    
+
     @FXML
     public TextField usernameField;
 
@@ -35,15 +35,8 @@ public class UserLoginPresenter {
         try {
             users = dao.readAll();
         } catch (SQLException exception) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Datenbank Fehler");
-            alert.setHeaderText("Datenbank nicht vollständig eingerichtet!");
-            alert.setContentText("Bitte richten sie vorerst die Datenbank ein.");
+            showLoginAlert("Bitte richte zuerst die Datenbank ein.");
         }
-    }
-
-    public void setMainApp(Main mainApp) {
-        this.mainApp = mainApp;
     }
 
     @FXML
@@ -61,18 +54,23 @@ public class UserLoginPresenter {
 
         if (user == null) {
             showLoginAlert("Ungültige Anmeldedaten!");
+            clearTextFields();
             return;
         }
 
         if (!passwordInput.equals(user.getPassword())) {
             showLoginAlert("Ungültige Anmeldedaten!");
+            clearTextFields();
             return;
         }
 
+        clearTextFields();
+        mainApp.mainWindow();
+    }
+
+    private void clearTextFields(){
         usernameField.clear();
         passwordField.clear();
-
-        mainApp.mainWindow();
     }
 
     public void showLoginAlert(String message) {
@@ -81,5 +79,9 @@ public class UserLoginPresenter {
         alert.setHeaderText("Fehler beim Login!");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void setMainApp(Main mainApp) {
+        this.mainApp = mainApp;
     }
 }

@@ -109,10 +109,8 @@ public class UserDao extends DaoImp<User> {
             final String sql = "SELECT * FROM users WHERE username = ?";
             preparedStatement = this.connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
-
             ResultSet resultSet = preparedStatement.executeQuery();
             user = new User(resultSet.getLong("uid"), resultSet.getString("username"), resultSet.getString("password"));
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

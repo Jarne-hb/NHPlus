@@ -7,7 +7,7 @@ import java.util.List;
 public abstract class DaoImp<T> implements Dao<T> {
     protected Connection connection;
 
-    public DaoImp(Connection connection) {
+    protected DaoImp(Connection connection) {
         this.connection = connection;
     }
 

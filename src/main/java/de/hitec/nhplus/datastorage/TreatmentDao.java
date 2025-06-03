@@ -111,7 +111,7 @@ public class TreatmentDao extends DaoImp<Treatment> {
      */
     @Override
     protected ArrayList<Treatment> getListFromResultSet(ResultSet result) throws SQLException {
-        ArrayList<Treatment> list = new ArrayList<Treatment>();
+        ArrayList<Treatment> list = new ArrayList<>();
         while (result.next()) {
             LocalDate date = DateConverter.convertStringToLocalDate(result.getString(4));
             LocalTime begin = DateConverter.convertStringToLocalTime(result.getString(5));

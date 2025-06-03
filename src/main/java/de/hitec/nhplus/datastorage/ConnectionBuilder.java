@@ -13,7 +13,7 @@ public class ConnectionBuilder {
 
     private static Connection connection;
 
-    synchronized public static Connection getConnection() {
+    public static synchronized Connection getConnection() {
         try {
             if (ConnectionBuilder.connection == null) {
                 SQLiteConfig configuration = new SQLiteConfig();
@@ -27,7 +27,7 @@ public class ConnectionBuilder {
         return ConnectionBuilder.connection;
     }
 
-    synchronized public static void closeConnection() {
+    public static synchronized void closeConnection() {
         try {
             if (ConnectionBuilder.connection != null) {
                 ConnectionBuilder.connection.close();

@@ -1,10 +1,14 @@
 package de.hitec.nhplus.presenter;
 
 import de.hitec.nhplus.Main;
+import de.hitec.nhplus.datastorage.ConnectionBuilder;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -41,5 +45,6 @@ public class MainWindowPresenter {
             exception.printStackTrace();
         }
     }
+
     }
 
