@@ -137,7 +137,7 @@ public class AllCaregiverPresenter {
         String telephone = txfTelephone.getText();
 
         try {
-            this.dao.create(new Caregiver(surname, firstName, telephone));
+            this.dao.create(new Caregiver(surname, firstName, telephone, true));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

@@ -20,7 +20,8 @@ public class CaregiverDao extends DaoImp<Caregiver> {
                 resultSet.getLong(1),
                 resultSet.getString(2),
                 resultSet.getString(3),
-                resultSet.getString(4)
+                resultSet.getString(4),
+                resultSet.getBoolean(5)
         );
     }
 
@@ -30,7 +31,7 @@ public class CaregiverDao extends DaoImp<Caregiver> {
 
         while (resultSet.next()){
             Caregiver caregiver = new Caregiver(resultSet.getLong(1), resultSet.getString(2),
-                    resultSet.getString(3), resultSet.getString(4));
+                    resultSet.getString(3), resultSet.getString(4), resultSet.getBoolean(5));
             caregivers.add(caregiver);
         }
 
@@ -42,12 +43,13 @@ public class CaregiverDao extends DaoImp<Caregiver> {
         PreparedStatement preparedStatement = null;
 
         try {
-            final String sqlStatement = "INSERT INTO caregiver (firstname, surname, telNumber) " +
-                    "VALUES (?,?,?)";
+            final String sqlStatement = "INSERT INTO caregiver (firstname, surname, telNumber, active) " +
+                    "VALUES (?,?,?,?)";
             preparedStatement = this.connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, caregiver.getFirstName());
             preparedStatement.setString(2, caregiver.getSurname());
             preparedStatement.setString(3, caregiver.getTelephone());
+            preparedStatement.setBoolean(4, caregiver.isActive());
         }catch (SQLException exception){
             exception.printStackTrace();
         }
@@ -75,8 +77,9 @@ public class CaregiverDao extends DaoImp<Caregiver> {
         PreparedStatement preparedStatement = null;
 
         try {
-            final String sqlStatement = "SELECT * FROM caregiver";
+            final String sqlStatement = "SELECT * FROM caregiver WHERE active = ?";
             preparedStatement = this.connection.prepareStatement(sqlStatement);
+            preparedStatement.setBoolean(1, true);
         }catch (SQLException exception){
             exception.printStackTrace();
         }
@@ -92,13 +95,15 @@ public class CaregiverDao extends DaoImp<Caregiver> {
             final String sqlStatement = "UPDATE caregiver SET " +
                     "firstname = ?, " +
                     "surname = ?, " +
-                    "telNumber = ? " + // Komma hier entfernt
+                    "telNumber = ?, " +
+                    "active = ? " +
                     "WHERE cgId = ?";
             preparedStatement = this.connection.prepareStatement(sqlStatement);
             preparedStatement.setString(1, caregiver.getFirstName());
             preparedStatement.setString(2, caregiver.getSurname());
             preparedStatement.setString(3, caregiver.getTelephone());
-            preparedStatement.setLong(4, caregiver.getCgID());
+            preparedStatement.setBoolean(4, caregiver.isActive());
+            preparedStatement.setLong(5, caregiver.getCgID());
         }catch (SQLException exception){
             exception.printStackTrace();
         }
@@ -110,14 +115,36 @@ public class CaregiverDao extends DaoImp<Caregiver> {
     protected PreparedStatement getDeleteStatement(long key) {
         PreparedStatement preparedStatement = null;
 
+        Caregiver caregiver = getCaregiverById(key);
+
         try {
-            final String sqlStatement = "DELETE FROM caregiver WHERE cgId = ?";
+            final String sqlStatement = "UPDATE caregiver SET " +
+                    "firstname = ?, " +
+                    "surname = ?, " +
+                    "telNumber = ?," +
+                    "active = ? " +
+                    "WHERE cgId = ?";
             preparedStatement = this.connection.prepareStatement(sqlStatement);
-            preparedStatement.setLong(1, key);
+            preparedStatement.setString(1, caregiver.getFirstName());
+            preparedStatement.setString(2, caregiver.getSurname());
+            preparedStatement.setString(3, caregiver.getTelephone());
+            preparedStatement.setBoolean(4, false);
+            preparedStatement.setLong(5, caregiver.getCgID());
         } catch (SQLException exception){
             exception.printStackTrace();
         }
 
         return preparedStatement;
+    }
+
+    private Caregiver getCaregiverById(long cgID) {
+        Caregiver caregiver = null;
+        try {
+            ResultSet resultSet = getReadByIDStatement(cgID).executeQuery();
+            caregiver = getInstanceFromResultSet(resultSet);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return caregiver;
     }
 }

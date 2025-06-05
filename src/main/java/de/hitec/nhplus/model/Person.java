@@ -6,7 +6,7 @@ public abstract class Person {
     private final SimpleStringProperty firstName;
     private final SimpleStringProperty surname;
 
-    public Person(String firstName, String surname) {
+    protected Person(String firstName, String surname) {
         this.firstName = new SimpleStringProperty(firstName);
         this.surname = new SimpleStringProperty(surname);
     }

@@ -89,7 +89,8 @@ public class SetUpDB {
                 "   cgId INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "   firstName TEXT NOT NULL, " +
                 "   surname TEXT NOT NULL, " +
-                "   telNumber TEXT NOT NULL " +
+                "   telNumber TEXT NOT NULL, " +
+                "   active BOOLEAN " +
                 ");";
 
         try (Statement statement = connection.createStatement()) {
@@ -149,9 +150,9 @@ public class SetUpDB {
     private static void setUpCaregivers() {
         try {
             CaregiverDao dao = DaoFactory.getDaoFactory().createCaregiverDao();
-            dao.create(new Caregiver(1, "Rosenbaum", "Ben", "0152 024538351"));
-            dao.create(new Caregiver(2, "Meiling", "Marvin", "0177 462065485"));
-            dao.create(new Caregiver(3, "Baum", "Hans", "1486 5625872368"));
+            dao.create(new Caregiver(1, "Rosenbaum", "Ben", "0152 024538351", true));
+            dao.create(new Caregiver(2, "Meiling", "Marvin", "0177 462065485", true));
+            dao.create(new Caregiver(3, "Baum", "Hans", "1486 5625872368", true));
         }catch (SQLException exception){
             exception.printStackTrace();
         }
