@@ -64,6 +64,7 @@ public class Main extends Application {
             this.primaryStage.show();
 
             this.primaryStage.setOnCloseRequest(event -> {
+                closeMessage();
                 ConnectionBuilder.closeConnection();
                 Platform.exit();
                 System.exit(0);
@@ -82,5 +83,19 @@ public class Main extends Application {
                 " |_| \\_|_| |_|_|    |_|\\__,_|___/ |_____/ \\__\\__,_|_|   \\__\\___|\\__,_|\n" +
                 "                                                                      \n" +
                 "                                                                      ");
+    }
+
+    private void closeMessage(){
+        System.out.println("\n" +
+                "\n" +
+                "  ____               ____             \n" +
+                " |  _ \\             |  _ \\            \n" +
+                " | |_) |_   _  ___  | |_) |_   _  ___ \n" +
+                " |  _ <| | | |/ _ \\ |  _ <| | | |/ _ \\\n" +
+                " | |_) | |_| |  __/ | |_) | |_| |  __/\n" +
+                " |____/ \\__, |\\___| |____/ \\__, |\\___|\n" +
+                "         __/ |              __/ |     \n" +
+                "        |___/              |___/      \n" +
+                "\n");
     }
 }
