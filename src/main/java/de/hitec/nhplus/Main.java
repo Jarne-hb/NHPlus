@@ -14,11 +14,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+
     private Stage primaryStage;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        startUpMessage();
         loginWindow();
     }
 
@@ -67,7 +73,14 @@ public class Main extends Application {
         }
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    private void startUpMessage(){
+        System.out.println("  _   _ _     _____  _              _____ _             _           _ \n" +
+                " | \\ | | |   |  __ \\| |            / ____| |           | |         | |\n" +
+                " |  \\| | |__ | |__) | |_   _ ___  | (___ | |_ __ _ _ __| |_ ___  __| |\n" +
+                " | . ` | '_ \\|  ___/| | | | / __|  \\___ \\| __/ _` | '__| __/ _ \\/ _` |\n" +
+                " | |\\  | | | | |    | | |_| \\__ \\  ____) | || (_| | |  | ||  __/ (_| |\n" +
+                " |_| \\_|_| |_|_|    |_|\\__,_|___/ |_____/ \\__\\__,_|_|   \\__\\___|\\__,_|\n" +
+                "                                                                      \n" +
+                "                                                                      ");
     }
 }
