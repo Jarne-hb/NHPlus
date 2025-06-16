@@ -9,13 +9,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Patients live in a NURSING home and are treated by nurses.
+ * Represents a Patient <br>
+ * <br>
+ * This class extends {@link Person} and adds patient-specific attributes such as
+ * date of birth, care level, room number and a unique identifier (pid).
  */
 public class Patient extends Person {
+    /**
+     * Unique identifier for the patient.
+     */
     private SimpleLongProperty pid;
+
+    /**
+     * The patient's date of birth as a formatted string (yyyy-MM-dd).
+     */
     private final SimpleStringProperty dateOfBirth;
+
+    /**
+     * The patient's assigned care level.
+     */
     private final SimpleStringProperty careLevel;
+
+    /**
+     * The patient's room number.
+     */
     private final SimpleStringProperty roomNumber;
+
+    /**
+     * List of all treatments assigned to the patient.
+     */
     private final List<Treatment> allTreatments = new ArrayList<>();
 
     /**
@@ -54,18 +76,38 @@ public class Patient extends Person {
         this.roomNumber = new SimpleStringProperty(roomNumber);
     }
 
+    /**
+     * Returns the patient ID.
+     *
+     * @return the unique patient ID
+     */
     public long getPid() {
         return pid.get();
     }
 
+    /**
+     * Returns the JavaFX property for the patient ID.
+     *
+     * @return the patient ID property
+     */
     public SimpleLongProperty pidProperty() {
         return pid;
     }
 
+    /**
+     * Returns the patient's date of birth.
+     *
+     * @return the date of birth as a string in the format YYYY-MM-DD
+     */
     public String getDateOfBirth() {
         return dateOfBirth.get();
     }
 
+    /**
+     * Returns the JavaFX property for the date of birth.
+     *
+     * @return the date of birth property
+     */
     public SimpleStringProperty dateOfBirthProperty() {
         return dateOfBirth;
     }
@@ -79,36 +121,65 @@ public class Patient extends Person {
         this.dateOfBirth.set(dateOfBirth);
     }
 
+    /**
+     * Returns the care level assigned to the patient.
+     *
+     * @return the care level
+     */
     public String getCareLevel() {
         return careLevel.get();
     }
 
+    /**
+     * Returns the JavaFX property for the care level.
+     *
+     * @return the care level property
+     */
     public SimpleStringProperty careLevelProperty() {
         return careLevel;
     }
 
+    /**
+     * Sets the patient's care level.
+     *
+     * @param careLevel the new care level
+     */
     public void setCareLevel(String careLevel) {
         this.careLevel.set(careLevel);
     }
 
+    /**
+     * Returns the patient's room number.
+     *
+     * @return the room number
+     */
     public String getRoomNumber() {
         return roomNumber.get();
     }
 
+    /**
+     * Returns the JavaFX property for the room number.
+     *
+     * @return the room number property
+     */
     public SimpleStringProperty roomNumberProperty() {
         return roomNumber;
     }
 
-
+    /**
+     * Sets the patient's room number.
+     *
+     * @param roomNumber the new room number
+     */
     public void setRoomNumber(String roomNumber) {
         this.roomNumber.set(roomNumber);
     }
 
     /**
-     * Adds a treatment to the list of treatments, if the list does not already contain the treatment.
+     * Adds a treatment to the patient's treatment list, if it is not already included.
      *
-     * @param treatment Treatment to add.
-     * @return False, if the treatment was already part of the list, else true.
+     * @param treatment the treatment to add
+     * @return <code>true</code> if the treatment was added, <code>false</code> if it was already present
      */
     public boolean add(Treatment treatment) {
         if (this.allTreatments.contains(treatment)) {
@@ -118,6 +189,11 @@ public class Patient extends Person {
         return true;
     }
 
+    /**
+     * Returns a string representation of the patient and their attributes.
+     *
+     * @return a formatted string with patient information
+     */
     public String toString() {
         return "Patient" + "\nMNID: " + this.pid +
                 "\nFirstname: " + this.getFirstName() +

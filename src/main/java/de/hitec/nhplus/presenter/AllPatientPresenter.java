@@ -21,7 +21,7 @@ import java.time.LocalDate;
 
 
 /**
- * The <code>AllPatientController</code> contains the entire logic of the patient view. It determines which data is displayed and how to react to events.
+ * The <code>AllPatientPresenter</code> contains the entire logic of the patient view. It determines which data is displayed and how to react to events.
  */
 public class AllPatientPresenter {
 
@@ -72,7 +72,7 @@ public class AllPatientPresenter {
 
     /**
      * When <code>initialize()</code> gets called, all fields are already initialized. For example from the FXMLLoader
-     * after loading an FXML-File. At this point of the lifecycle of the Controller, the fields can be accessed and
+     * after loading an FXML-File. At this point of the lifecycle of the Presenter, the fields can be accessed and
      * configured.
      */
     public void initialize() {

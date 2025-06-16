@@ -33,8 +33,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ComboBox fx:id="comboBoxPatientSelection" minWidth="160.0" onAction="#handlePatientComboBox" prefWidth="200.0" promptText="Patient:in" />
-                  <ComboBox fx:id="comboBoxCaregiverSelection" prefHeight="23.0" prefWidth="174.0" onAction="#handleCaregiverComboBox" promptText="Pfleger:in" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="comboBoxPatientSelection" minWidth="160.0" onAction="#handleComboBox" prefWidth="200.0" promptText="Patient:in" />
+                  <ComboBox fx:id="comboBoxCaregiverSelection" prefHeight="23.0" prefWidth="174.0" onAction="#handleComboBox" promptText="Pfleger:in" GridPane.columnIndex="1" />
                   <Button fx:id="buttonNewTreament" mnemonicParsing="false" onAction="#handleNewTreatment" prefWidth="200.0" text="neue Behandlung anlegen" GridPane.columnIndex="2" />
                   <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="200.0" text="Löschen" GridPane.columnIndex="3" />
                </children>

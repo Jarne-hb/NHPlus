@@ -140,6 +140,43 @@ public class TreatmentDao extends DaoImp<Treatment> {
         }
         return preparedStatement;
     }
+    /**
+     * Generates a <code>PreparedStatement</code> to query all treatments of a caregiver with a given caregiver id (cgID).
+     *
+     * @param cgID Caregiver id to query all treatments referencing this id.
+     * @return <code>PreparedStatement</code> to query all treatments of the given caregiver id (cgID).
+     */
+    private PreparedStatement getReadAllTreatmentsOfOneCaregiverByCgID(long cgID) {
+        PreparedStatement preparedStatement = null;
+        try {
+            final String SQL = "SELECT * FROM treatment WHERE cgID = ?";
+            preparedStatement = this.connection.prepareStatement(SQL);
+            preparedStatement.setLong(1, cgID);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return preparedStatement;
+    }
+
+    /**
+     * Generates a <code>PreparedStatement</code> to query all treatments of a caregiver with a given patient id (pid) and a caregiver with a given caregiver id (cgID).
+     *
+     * @param pid Patient id to query all treatments referencing this id.
+     * @param cgID Caregiver id to query all treatments referencing this id.
+     * @return <code>PreparedStatement</code> to query all treatments of the given patient id (pid) and the caregiver id (cgID).
+     */
+    private PreparedStatement getReadAllTreatmentsOfOnePatientByPidAndOneCaregiverByCgID(long pid, long cgID) {
+        PreparedStatement preparedStatement = null;
+        try {
+            final String SQL = "SELECT * FROM treatment WHERE pid = ? AND cgID = ?";
+            preparedStatement = this.connection.prepareStatement(SQL);
+            preparedStatement.setLong(1, pid);
+            preparedStatement.setLong(2, cgID);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return preparedStatement;
+    }
 
     /**
      * Queries all treatments of a given patient id (pid) and maps the results to an <code>ArrayList</code> with
@@ -151,6 +188,33 @@ public class TreatmentDao extends DaoImp<Treatment> {
      */
     public List<Treatment> readTreatmentsByPid(long pid) throws SQLException {
         ResultSet result = getReadAllTreatmentsOfOnePatientByPid(pid).executeQuery();
+        return getListFromResultSet(result);
+    }
+
+    /**
+     * Queries all treatments of a given caregiver id (cgID) and maps the results to an <code>ArrayList</code> with
+     * objects of class <code>Treatment</code>.
+     *
+     * @param cgID Caregiver id to query all treatments referencing this id.
+     * @return <code>ArrayList</code> with objects of class <code>Treatment</code> of all rows in the
+     * <code>ResultSet</code>.
+     */
+    public List<Treatment> readTreatmentsByCgID(long cgID) throws SQLException {
+        ResultSet result = getReadAllTreatmentsOfOneCaregiverByCgID(cgID).executeQuery();
+        return getListFromResultSet(result);
+    }
+
+    /**
+     * Queries all treatments of a given patient id (pid) and a given caregiver id (cgID) and maps the results to an <code>ArrayList</code> with
+     * objects of class <code>Treatment</code>.
+     *
+     * @param pid Patient id to query all treatments referencing this id.
+     * @param cgID Caregiver id to query all treatments referencing this id.
+     * @return <code>ArrayList</code> with objects of class <code>Treatment</code> of all rows in the
+     * <code>ResultSet</code>.
+     */
+    public List<Treatment> readTreatmentsByPidAndCgID(long pid, long cgID) throws SQLException {
+        ResultSet result = getReadAllTreatmentsOfOnePatientByPidAndOneCaregiverByCgID(pid,cgID).executeQuery();
         return getListFromResultSet(result);
     }
 
