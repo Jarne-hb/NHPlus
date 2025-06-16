@@ -65,8 +65,7 @@ public class AllTreatmentPresenter {
     private ArrayList<Caregiver> caregiverList;
 
     /**
-     * When <code>initialize()</code> gets called, all fields are already initialized. For example from the FXMLLoader
-     * after loading an FXML-File. At this point of the lifecycle of the Presenter, the fields can be accessed and
+     * When <code>initialize()</code> gets called, all fields are already initialized. At this point of the lifecycle of the Presenter, the fields can be accessed and
      * configured.
      */
     public void initialize() {
@@ -292,7 +291,7 @@ public class AllTreatmentPresenter {
             // the primary stage should stay in the background
             Stage stage = new Stage();
             TreatmentPresenter controller = loader.getController();
-            controller.initializeController(this, stage, treatment);
+            controller.initialize(this, stage, treatment);
 
             stage.setScene(scene);
             stage.setResizable(false);

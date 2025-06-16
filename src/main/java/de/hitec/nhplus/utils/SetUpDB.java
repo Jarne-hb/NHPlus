@@ -48,6 +48,11 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * Creates the <code>patient</code> table if it does not already exist.
+     *
+     * @param connection the active database connection
+     */
     private static void setUpTablePatient(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS patient (" +
                 "   pid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -64,6 +69,11 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * Creates the <code>treatment</code> table if it does not already exist.
+     *
+     * @param connection the active database connection
+     */
     private static void setUpTableTreatment(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS treatment (" +
                 "   tid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -84,6 +94,11 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * Creates the <code>caregiver</code> table if it does not already exist.
+     *
+     * @param connection the active database connection
+     */
     private static void setUpTableCaregiver(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS caregiver (" +
                 "   cgId INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -100,6 +115,11 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * Creates the <code>users</code> table if it does not already exist.
+     *
+     * @param connection the active database connection
+     */
     private static void setUpTableUsers(Connection connection){
         final String sql = "CREATE TABLE IF NOT EXISTS users (" +
                 "   uid INTEGER PRIMARY KEY," +
@@ -114,7 +134,9 @@ public class SetUpDB {
         }
     }
 
-
+    /**
+     * Inserts predefined sample patients into the database.
+     */
     private static void setUpPatients() {
         try {
             PatientDao dao = DaoFactory.getDaoFactory().createPatientDAO();
@@ -129,6 +151,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * Inserts predefined sample treatments into the database.
+     */
     private static void setUpTreatments() {
         try {
             TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
@@ -147,6 +172,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * Inserts predefined sample caregivers into the database.
+     */
     private static void setUpCaregivers() {
         try {
             CaregiverDao dao = DaoFactory.getDaoFactory().createCaregiverDao();
@@ -158,6 +186,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+    * Main method to execute the database setup.
+    */
     public static void main(String[] args) {
         SetUpDB.setUpDb();
     }

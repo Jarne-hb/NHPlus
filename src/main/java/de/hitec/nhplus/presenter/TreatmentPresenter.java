@@ -15,6 +15,9 @@ import de.hitec.nhplus.utils.DateConverter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+/**
+ * The <code>TreatmentPresenter</code> contains the entire logic of the treatment view. It determines which data is displayed and how to react to events.
+ */
 public class TreatmentPresenter {
 
     @FXML
@@ -44,14 +47,18 @@ public class TreatmentPresenter {
     @FXML
     private DatePicker datePicker;
 
-
     private AllTreatmentPresenter controller;
     private Stage stage;
     private Patient patient;
     private Treatment treatment;
     private Caregiver caregiver;
 
-    public void initializeController(AllTreatmentPresenter controller, Stage stage, Treatment treatment) {
+    /**
+     * When <code>initialize()</code> gets called, all fields are already initialized. For example from the FXMLLoader
+     * after loading an FXML-File. At this point of the lifecycle of the Presenter, the fields can be accessed and
+     * configured.
+     */
+    public void initialize(AllTreatmentPresenter controller, Stage stage, Treatment treatment) {
         this.stage = stage;
         this.controller= controller;
         PatientDao pDao = DaoFactory.getDaoFactory().createPatientDAO();
@@ -66,6 +73,9 @@ public class TreatmentPresenter {
         }
     }
 
+    /**
+     * Displays existing treatment, patient, and caregiver data in the corresponding form fields. <br>
+     */
     private void showData(){
         this.labelPatientName.setText(patient.getSurname() + ", " + patient.getFirstName());
         this.labelCareLevel.setText(patient.getCareLevel());
@@ -79,6 +89,14 @@ public class TreatmentPresenter {
         this.textAreaRemarks.setText(this.treatment.getRemarks());
     }
 
+    /**
+     * Handles the update of an existing treatment based on the input fields. <br>
+     * <br>
+     * This method collects the modified treatment data from the form,
+     * updates the corresponding {@link Treatment} object, persists the changes
+     * to the database, refreshes the treatment table in the main view,
+     * and closes the current window.
+     */
     @FXML
     public void handleChange(){
         this.treatment.setDate(this.datePicker.getValue().toString());
@@ -91,6 +109,13 @@ public class TreatmentPresenter {
         stage.close();
     }
 
+    /**
+     * Updates the current treatment in the database. <br>
+     * <br>
+     * This method uses the {@link TreatmentDao} to persist the changes
+     * made to the {@link Treatment} object. If a {@link SQLException} occurs,
+     * it will be printed to the console.
+     */
     private void doUpdate(){
         TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
         try {
@@ -100,6 +125,9 @@ public class TreatmentPresenter {
         }
     }
 
+    /**
+     * Handles the cancel action by closing the current window.
+     */
     @FXML
     public void handleCancel(){
         stage.close();

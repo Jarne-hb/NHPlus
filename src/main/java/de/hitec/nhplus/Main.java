@@ -13,14 +13,32 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
+/**
+ * The main class of the NHPlus application. <br>
+ * <br>
+ * It launches the JavaFX application and manages the startup, login, and main window scenes.
+ */
 public class Main extends Application {
 
+    /**
+     * The primary stage (main window) of the application.
+     */
     private Stage primaryStage;
 
+    /**
+    * The application's entry point. Launches the JavaFX framework.
+    */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Called by the JavaFX framework when the application is ready to start.
+     * Initializes the primary stage and shows the login window.
+     *
+     * @param primaryStage the primary window (stage) of the JavaFX application
+     */
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -28,6 +46,10 @@ public class Main extends Application {
         loginWindow();
     }
 
+    /**
+     * Displays the login window using the <code>UserLoginView.fxml</code> layout.
+     * Initializes the corresponding presenter and configures the window.
+     */
     public void loginWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/UserLoginView.fxml"));
@@ -52,6 +74,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Displays the main application window using the <code>MainWindowView.fxml</code> layout.
+     */
     public void mainWindow(){
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/MainWindowView.fxml"));
@@ -74,6 +99,9 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Prints a startup ASCII message to the console when the application starts.
+     */
     private void startUpMessage(){
         System.out.println("  _   _ _     _____  _              _____ _             _           _ \n" +
                 " | \\ | | |   |  __ \\| |            / ____| |           | |         | |\n" +
@@ -85,6 +113,9 @@ public class Main extends Application {
                 "                                                                      ");
     }
 
+    /**
+     * Prints a goodbye ASCII message to the console when the application closes.
+     */
     private void closeMessage(){
         System.out.println("\n" +
                 "\n" +

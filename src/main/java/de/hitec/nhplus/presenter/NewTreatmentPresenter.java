@@ -16,6 +16,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * The <code>NewTreatmentPresenter</code> contains the entire logic of the new treatment view. It determines which data is displayed and how to react to events.
+ */
 public class NewTreatmentPresenter {
 
     @FXML
@@ -53,6 +56,10 @@ public class NewTreatmentPresenter {
     private Stage stage;
     private Caregiver caregiver;
 
+    /**
+     * When <code>initialize()</code> gets called, all fields are already initialized. At this point of the lifecycle of the Presenter, the fields can be accessed and
+     * configured.
+     */
     public void initialize(AllTreatmentPresenter controller, Stage stage, Patient patient, Caregiver caregiver) {
         this.controller= controller;
         this.patient = patient;
@@ -81,6 +88,9 @@ public class NewTreatmentPresenter {
         this.showPatientData();
     }
 
+    /**
+     * Displays basic patient and caregiver information in the form labels.
+     */
     private void showPatientData(){
         this.labelFirstName.setText(patient.getFirstName());
         this.labelSurname.setText(patient.getSurname());
@@ -88,6 +98,10 @@ public class NewTreatmentPresenter {
         this.labelCaregiverTelephone.setText(caregiver.getTelephone());
     }
 
+    /**
+     * Handles the "Add" button event. Validates the input, creates a new {@link Treatment},
+     * stores it in the database, updates the table view, and closes the window.
+     */
     @FXML
     public void handleAdd(){
         LocalDate date = this.datePicker.getValue();
@@ -101,6 +115,11 @@ public class NewTreatmentPresenter {
         stage.close();
     }
 
+    /**
+     * Saves the new treatment to the database using the {@link TreatmentDao}.
+     *
+     * @param treatment the treatment to be stored
+     */
     private void createTreatment(Treatment treatment) {
         TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
         try {
@@ -110,11 +129,23 @@ public class NewTreatmentPresenter {
         }
     }
 
+    /**
+     * Handles the "Cancel" button event and closes the current window without saving.
+     */
     @FXML
     public void handleCancel(){
         stage.close();
     }
 
+    /**
+     * Checks whether the user input is valid. Disables the "Add" button if:
+     * - begin or end time is empty or invalid
+     * - end time is not after begin time
+     * - description is empty
+     * - no date is selected
+     *
+     * @return <code>true</code> if any input data is invalid; <code>false</code> otherwise
+     */
     private boolean areInputDataInvalid() {
         if (this.textFieldBegin.getText() == null || this.textFieldEnd.getText() == null) {
             return true;
