@@ -11,6 +11,7 @@ import java.util.List;
  * entities of type <code>T</code>. Concrete DAO classes must implement the required abstract
  * methods to provide entity-specific SQL statements and result parsing.
  *
+ * @param <T> Type of the entity.
  */
 public abstract class DaoImp<T> implements Dao<T> {
     /**

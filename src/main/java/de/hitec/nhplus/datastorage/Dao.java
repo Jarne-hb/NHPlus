@@ -8,6 +8,8 @@ import java.util.List;
  * for entities of type <code>T</code>. <br>
  * <br>
  * All methods throw {@link SQLException} to indicate database access issues.
+ *
+ * @param <T> Type of the entity.
  */
 public interface Dao<T> {
     /**

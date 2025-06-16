@@ -6,14 +6,14 @@ import java.time.format.DateTimeFormatter;
 
 
 /**
- * Utility class for converting between {@link String}, {@link LocalDate}, and {@link LocalTime}.
- * <p>
+ * Utility class for converting between {@link String}, {@link LocalDate}, and {@link LocalTime}.<br>
+ * <br>
  * Uses standard date and time formats:
  * <ul>
  *     <li>Date format: <code>yyyy-MM-dd</code></li>
  *     <li>Time format: <code>HH:mm</code></li>
  * </ul>
- * </p>
+ *
  */
 public class DateConverter {
 
