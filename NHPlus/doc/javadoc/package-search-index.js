@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"Alle Packages","u":"allpackages-index.html"},{"m":"de.hitec.nhplus","l":"de.hitec.nhplus"},{"m":"de.hitec.nhplus","l":"de.hitec.nhplus.datastorage"},{"m":"de.hitec.nhplus","l":"de.hitec.nhplus.model"},{"m":"de.hitec.nhplus","l":"de.hitec.nhplus.presenter"},{"m":"de.hitec.nhplus","l":"de.hitec.nhplus.utils"}];updateSearchResults();
